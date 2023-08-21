@@ -71,6 +71,36 @@ class JobsV1Record extends FirestoreRecord {
   String get salary => _salary ?? '';
   bool hasSalary() => _salary != null;
 
+  // "author" field.
+  String? _author;
+  String get author => _author ?? '';
+  bool hasAuthor() => _author != null;
+
+  // "createdAt" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  bool hasCreatedAt() => _createdAt != null;
+
+  // "authorEmail" field.
+  String? _authorEmail;
+  String get authorEmail => _authorEmail ?? '';
+  bool hasAuthorEmail() => _authorEmail != null;
+
+  // "imageURL1" field.
+  String? _imageURL1;
+  String get imageURL1 => _imageURL1 ?? '';
+  bool hasImageURL1() => _imageURL1 != null;
+
+  // "imageURL2" field.
+  String? _imageURL2;
+  String get imageURL2 => _imageURL2 ?? '';
+  bool hasImageURL2() => _imageURL2 != null;
+
+  // "imageURL3" field.
+  String? _imageURL3;
+  String get imageURL3 => _imageURL3 ?? '';
+  bool hasImageURL3() => _imageURL3 != null;
+
   void _initializeFields() {
     _jobTitle = snapshotData['jobTitle'] as String?;
     _company = snapshotData['company'] as String?;
@@ -83,6 +113,12 @@ class JobsV1Record extends FirestoreRecord {
     _reqCert = snapshotData['reqCert'] as String?;
     _dutiesRes = snapshotData['dutiesRes'] as String?;
     _salary = snapshotData['salary'] as String?;
+    _author = snapshotData['author'] as String?;
+    _createdAt = snapshotData['createdAt'] as DateTime?;
+    _authorEmail = snapshotData['authorEmail'] as String?;
+    _imageURL1 = snapshotData['imageURL1'] as String?;
+    _imageURL2 = snapshotData['imageURL2'] as String?;
+    _imageURL3 = snapshotData['imageURL3'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -130,6 +166,12 @@ Map<String, dynamic> createJobsV1RecordData({
   String? reqCert,
   String? dutiesRes,
   String? salary,
+  String? author,
+  DateTime? createdAt,
+  String? authorEmail,
+  String? imageURL1,
+  String? imageURL2,
+  String? imageURL3,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -144,6 +186,12 @@ Map<String, dynamic> createJobsV1RecordData({
       'reqCert': reqCert,
       'dutiesRes': dutiesRes,
       'salary': salary,
+      'author': author,
+      'createdAt': createdAt,
+      'authorEmail': authorEmail,
+      'imageURL1': imageURL1,
+      'imageURL2': imageURL2,
+      'imageURL3': imageURL3,
     }.withoutNulls,
   );
 
@@ -165,7 +213,13 @@ class JobsV1RecordDocumentEquality implements Equality<JobsV1Record> {
         e1?.minExp == e2?.minExp &&
         e1?.reqCert == e2?.reqCert &&
         e1?.dutiesRes == e2?.dutiesRes &&
-        e1?.salary == e2?.salary;
+        e1?.salary == e2?.salary &&
+        e1?.author == e2?.author &&
+        e1?.createdAt == e2?.createdAt &&
+        e1?.authorEmail == e2?.authorEmail &&
+        e1?.imageURL1 == e2?.imageURL1 &&
+        e1?.imageURL2 == e2?.imageURL2 &&
+        e1?.imageURL3 == e2?.imageURL3;
   }
 
   @override
@@ -180,7 +234,13 @@ class JobsV1RecordDocumentEquality implements Equality<JobsV1Record> {
         e?.minExp,
         e?.reqCert,
         e?.dutiesRes,
-        e?.salary
+        e?.salary,
+        e?.author,
+        e?.createdAt,
+        e?.authorEmail,
+        e?.imageURL1,
+        e?.imageURL2,
+        e?.imageURL3
       ]);
 
   @override

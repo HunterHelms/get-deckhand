@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -125,9 +124,12 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                       children: [
                         Align(
                           alignment: Alignment(0.0, 0),
-                          child: FlutterFlowButtonTabBar(
-                            useToggleButtonStyle: false,
+                          child: TabBar(
                             isScrollable: true,
+                            labelColor: Colors.white,
+                            unselectedLabelColor: Colors.white,
+                            labelPadding: EdgeInsetsDirectional.fromSTEB(
+                                5.0, 0.0, 5.0, 0.0),
                             labelStyle: FlutterFlowTheme.of(context)
                                 .titleMedium
                                 .override(
@@ -140,15 +142,9 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                                 .titleMedium
                                 .override(
                                   fontFamily: 'Manrope',
-                                  fontSize: 18.0,
+                                  fontSize: 15.0,
                                 ),
-                            labelColor: Colors.white,
-                            unselectedLabelColor: Color(0xFF26C6DA),
-                            borderWidth: 0.0,
-                            borderRadius: 0.0,
-                            elevation: 0.0,
-                            labelPadding: EdgeInsetsDirectional.fromSTEB(
-                                5.0, 0.0, 5.0, 0.0),
+                            indicatorColor: Colors.white,
                             tabs: [
                               Tab(
                                 text: 'Sign In',

@@ -8,8 +8,6 @@ export '/pages/create_profile/create_profile_widget.dart'
     show CreateProfileWidget;
 export '/pages/home_candidate_dashboard/home_candidate_dashboard_widget.dart'
     show HomeCandidateDashboardWidget;
-export '/pages/home_hiring_dashboard/home_hiring_dashboard_widget.dart'
-    show HomeHiringDashboardWidget;
 export '/profile_01/profile01_widget.dart' show Profile01Widget;
 export '/pages/home_hiring_v2/home_hiring_v2_widget.dart'
     show HomeHiringV2Widget;

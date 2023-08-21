@@ -1,11 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_job_v1_model.dart';
@@ -86,7 +89,10 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    // postJob
+                    if (_model.formKey.currentState == null ||
+                        !_model.formKey.currentState!.validate()) {
+                      return;
+                    }
 
                     await JobsV1Record.collection
                         .doc()
@@ -104,9 +110,13 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                           reqCert: _model.reqCertController.text,
                           dutiesRes:
                               _model.dutiesResponsibilitiesController.text,
+                          imageURL1: _model.uploadedFileUrl,
+                          author: currentUserUid,
+                          authorEmail: currentUserEmail,
                         ));
+                    HapticFeedback.mediumImpact();
 
-                    context.goNamed('Home_hiring_v2');
+                    context.pushNamed('Home_hiring_v2');
                   },
                   text: 'Post',
                   options: FFButtonOptions(
@@ -115,7 +125,7 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                         EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     iconPadding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: Color(0xFF2B9A4C),
                     textStyle:
                         FlutterFlowTheme.of(context).titleMedium.override(
                               fontFamily: 'Manrope',
@@ -213,7 +223,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -227,14 +238,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -312,7 +323,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -326,14 +338,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -411,7 +423,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -425,14 +438,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -446,7 +459,7 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Lexend Deca',
+                                      fontFamily: 'Roboto',
                                       color: Color(0xFF14181B),
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.normal,
@@ -504,7 +517,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -518,14 +532,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -599,7 +613,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -613,14 +628,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -693,7 +708,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -707,14 +723,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -786,7 +802,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -800,14 +817,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -880,7 +897,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -894,14 +912,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -973,7 +991,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -987,14 +1006,14 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -1071,7 +1090,8 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -1085,14 +1105,16 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -1118,6 +1140,128 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                       .asValidator(context),
                                 ),
                               ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 5.0),
+                                        child: Text(
+                                          'Upload Photos*',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleLarge
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 22.0,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 0.0, 10.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    final selectedMedia = await selectMedia(
+                                      mediaSource: MediaSource.photoGallery,
+                                      multiImage: false,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      setState(
+                                          () => _model.isDataUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        showUploadMessage(
+                                          context,
+                                          'Uploading file...',
+                                          showLoading: true,
+                                        );
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+
+                                        downloadUrls = (await Future.wait(
+                                          selectedMedia.map(
+                                            (m) async => await uploadData(
+                                                m.storagePath, m.bytes),
+                                          ),
+                                        ))
+                                            .where((u) => u != null)
+                                            .map((u) => u!)
+                                            .toList();
+                                      } finally {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                        _model.isDataUploading = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl =
+                                              downloadUrls.first;
+                                        });
+                                        showUploadMessage(context, 'Success!');
+                                      } else {
+                                        setState(() {});
+                                        showUploadMessage(
+                                            context, 'Failed to upload data');
+                                        return;
+                                      }
+                                    }
+                                  },
+                                  text: 'Upload',
+                                  options: FFButtonOptions(
+                                    width: 350.0,
+                                    height: 40.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Manrope',
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -1126,7 +1270,10 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                               0.0, 0.0, 0.0, 25.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              // postJob
+                              if (_model.formKey.currentState == null ||
+                                  !_model.formKey.currentState!.validate()) {
+                                return;
+                              }
 
                               await JobsV1Record.collection
                                   .doc()
@@ -1146,19 +1293,23 @@ class _CreateJobV1WidgetState extends State<CreateJobV1Widget> {
                                     reqCert: _model.reqCertController.text,
                                     dutiesRes: _model
                                         .dutiesResponsibilitiesController.text,
+                                    author: currentUserUid,
+                                    authorEmail: currentUserEmail,
+                                    imageURL1: _model.uploadedFileUrl,
                                   ));
+                              HapticFeedback.mediumImpact();
 
-                              context.goNamed('Home_hiring_v2');
+                              context.pushNamed('Home_hiring_v2');
                             },
                             text: 'Post Job',
                             options: FFButtonOptions(
-                              width: 250.0,
+                              width: 350.0,
                               height: 40.0,
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: Color(0xFF2B9A4C),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(

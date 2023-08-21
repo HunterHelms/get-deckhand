@@ -121,11 +121,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => HomeCandidateDashboardWidget(),
         ),
         FFRoute(
-          name: 'Home_hiring_Dashboard',
-          path: '/homeHiringDashboard',
-          builder: (context, params) => HomeHiringDashboardWidget(),
-        ),
-        FFRoute(
           name: 'Profile_01',
           path: '/profile01',
           requireAuth: true,
