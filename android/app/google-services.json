@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "598120000272",
+    "project_id": "deckhanddev",
+    "storage_bucket": "deckhanddev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598120000272:android:8e4cbcb33b978cc6f19395",
+        "android_client_info": {
+          "package_name": "com.mycompany.deckhanddev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598120000272-guk8est4l2j8mm1k8qbhri31829ahsqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.deckhanddev",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "598120000272-rimmego3b4cclo2heh69ici1uvn1qj4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi_75Eo1ldUO9DALoumK-Atv0wYxpVNpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598120000272-rimmego3b4cclo2heh69ici1uvn1qj4v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "598120000272-flo6uthif5nq8k1eerb5e5pu8eusnoeq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.deckhanddev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
