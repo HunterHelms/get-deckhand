@@ -12,3 +12,6 @@ export '/profile_01/profile01_widget.dart' show Profile01Widget;
 export '/pages/home_hiring_v2/home_hiring_v2_widget.dart'
     show HomeHiringV2Widget;
 export '/create_job_v1/create_job_v1_widget.dart' show CreateJobV1Widget;
+export '/job_details_v1/job_details_v1_widget.dart' show JobDetailsV1Widget;
+export '/job_candidate_profile_v1/job_candidate_profile_v1_widget.dart'
+    show JobCandidateProfileV1Widget;

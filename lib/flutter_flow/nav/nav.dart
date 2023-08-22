@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '/backend/backend.dart';
@@ -136,6 +137,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/createJobV1',
           requireAuth: true,
           builder: (context, params) => CreateJobV1Widget(),
+        ),
+        FFRoute(
+          name: 'jobDetailsV1',
+          path: '/jobDetailsV1',
+          asyncParams: {
+            'jobDoc': getDoc(['jobs_v1'], JobsV1Record.fromSnapshot),
+          },
+          builder: (context, params) => JobDetailsV1Widget(
+            jobDoc: params.getParam('jobDoc', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'jobCandidateProfileV1',
+          path: '/jobCandidateProfileV1',
+          asyncParams: {
+            'userDoc': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => JobCandidateProfileV1Widget(
+            userDoc: params.getParam('userDoc', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -319,10 +340,9 @@ class FFRoute {
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+                    child: SpinKitRipple(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 50.0,
                     ),
                   ),
                 )

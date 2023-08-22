@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +19,11 @@ class CreateJobV1Model extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // State field(s) for jobTitle widget.
   TextEditingController? jobTitleController;
   String? Function(BuildContext, String?)? jobTitleControllerValidator;
@@ -116,14 +123,6 @@ class CreateJobV1Model extends FlutterFlowModel {
   // State field(s) for reqCert widget.
   TextEditingController? reqCertController;
   String? Function(BuildContext, String?)? reqCertControllerValidator;
-  String? _reqCertControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
-
   // State field(s) for dutiesResponsibilities widget.
   TextEditingController? dutiesResponsibilitiesController;
   String? Function(BuildContext, String?)?
@@ -137,10 +136,9 @@ class CreateJobV1Model extends FlutterFlowModel {
     return null;
   }
 
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  // State field(s) for salary widget.
+  TextEditingController? salaryController;
+  String? Function(BuildContext, String?)? salaryControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -153,7 +151,6 @@ class CreateJobV1Model extends FlutterFlowModel {
     addressControllerValidator = _addressControllerValidator;
     portOfDepartureControllerValidator = _portOfDepartureControllerValidator;
     minExpControllerValidator = _minExpControllerValidator;
-    reqCertControllerValidator = _reqCertControllerValidator;
     dutiesResponsibilitiesControllerValidator =
         _dutiesResponsibilitiesControllerValidator;
   }
@@ -170,6 +167,7 @@ class CreateJobV1Model extends FlutterFlowModel {
     minExpController?.dispose();
     reqCertController?.dispose();
     dutiesResponsibilitiesController?.dispose();
+    salaryController?.dispose();
   }
 
   /// Action blocks are added here.

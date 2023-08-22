@@ -101,6 +101,31 @@ class JobsV1Record extends FirestoreRecord {
   String get imageURL3 => _imageURL3 ?? '';
   bool hasImageURL3() => _imageURL3 != null;
 
+  // "jobID" field.
+  int? _jobID;
+  int get jobID => _jobID ?? 0;
+  bool hasJobID() => _jobID != null;
+
+  // "applicants" field.
+  List<DocumentReference>? _applicants;
+  List<DocumentReference> get applicants => _applicants ?? const [];
+  bool hasApplicants() => _applicants != null;
+
+  // "savers" field.
+  List<DocumentReference>? _savers;
+  List<DocumentReference> get savers => _savers ?? const [];
+  bool hasSavers() => _savers != null;
+
+  // "viewers" field.
+  List<DocumentReference>? _viewers;
+  List<DocumentReference> get viewers => _viewers ?? const [];
+  bool hasViewers() => _viewers != null;
+
+  // "viewCount" field.
+  int? _viewCount;
+  int get viewCount => _viewCount ?? 0;
+  bool hasViewCount() => _viewCount != null;
+
   void _initializeFields() {
     _jobTitle = snapshotData['jobTitle'] as String?;
     _company = snapshotData['company'] as String?;
@@ -119,6 +144,11 @@ class JobsV1Record extends FirestoreRecord {
     _imageURL1 = snapshotData['imageURL1'] as String?;
     _imageURL2 = snapshotData['imageURL2'] as String?;
     _imageURL3 = snapshotData['imageURL3'] as String?;
+    _jobID = castToType<int>(snapshotData['jobID']);
+    _applicants = getDataList(snapshotData['applicants']);
+    _savers = getDataList(snapshotData['savers']);
+    _viewers = getDataList(snapshotData['viewers']);
+    _viewCount = castToType<int>(snapshotData['viewCount']);
   }
 
   static CollectionReference get collection =>
@@ -172,6 +202,8 @@ Map<String, dynamic> createJobsV1RecordData({
   String? imageURL1,
   String? imageURL2,
   String? imageURL3,
+  int? jobID,
+  int? viewCount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -192,6 +224,8 @@ Map<String, dynamic> createJobsV1RecordData({
       'imageURL1': imageURL1,
       'imageURL2': imageURL2,
       'imageURL3': imageURL3,
+      'jobID': jobID,
+      'viewCount': viewCount,
     }.withoutNulls,
   );
 
@@ -203,6 +237,7 @@ class JobsV1RecordDocumentEquality implements Equality<JobsV1Record> {
 
   @override
   bool equals(JobsV1Record? e1, JobsV1Record? e2) {
+    const listEquality = ListEquality();
     return e1?.jobTitle == e2?.jobTitle &&
         e1?.company == e2?.company &&
         e1?.vesselName == e2?.vesselName &&
@@ -219,7 +254,12 @@ class JobsV1RecordDocumentEquality implements Equality<JobsV1Record> {
         e1?.authorEmail == e2?.authorEmail &&
         e1?.imageURL1 == e2?.imageURL1 &&
         e1?.imageURL2 == e2?.imageURL2 &&
-        e1?.imageURL3 == e2?.imageURL3;
+        e1?.imageURL3 == e2?.imageURL3 &&
+        e1?.jobID == e2?.jobID &&
+        listEquality.equals(e1?.applicants, e2?.applicants) &&
+        listEquality.equals(e1?.savers, e2?.savers) &&
+        listEquality.equals(e1?.viewers, e2?.viewers) &&
+        e1?.viewCount == e2?.viewCount;
   }
 
   @override
@@ -240,7 +280,12 @@ class JobsV1RecordDocumentEquality implements Equality<JobsV1Record> {
         e?.authorEmail,
         e?.imageURL1,
         e?.imageURL2,
-        e?.imageURL3
+        e?.imageURL3,
+        e?.jobID,
+        e?.applicants,
+        e?.savers,
+        e?.viewers,
+        e?.viewCount
       ]);
 
   @override
